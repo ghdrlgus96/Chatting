@@ -28,7 +28,8 @@ class MainActivity : AppCompatActivity() {
 
         MyId.text = USER
 
-        test(USER)
+        //test(USER)
+        test(ID)
 
         chatList.setOnItemClickListener { parent, view, position, id ->
             var temp = chatlist.get(position)
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     fun toasting(msg: String?) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
+    /*
     fun test(msg: String?) {
         toasting(msg)
         var queue:RequestQueue = Volley.newRequestQueue(this);
@@ -64,6 +66,33 @@ class MainActivity : AppCompatActivity() {
         )
         queue.add(request)
     }
+    */
+    fun test(msg: String?) {
+        var queue: RequestQueue = Volley.newRequestQueue(this);
+        val request = StringRequest(Request.Method.GET, url + "/list/" + msg,
+            Response.Listener {
+                    response -> run {
+                Log.d("asdd", response)
+                var result = JSONObject(response)
+                var temp = result.getJSONArray("list")
+                var temp2 = result.getJSONArray("names")
+                for (i in 0..temp.length() - 1) {
+                    chatlist.add(temp.getString(i))
+                    namelist.add(temp2.getString(i))
+                }
+                var tempAdpater = ArrayAdapter(this, android.R.layout.simple_list_item_1, namelist)
+                chatList.adapter = tempAdpater
+                tempAdpater.notifyDataSetChanged()
+            }
+            }, Response.ErrorListener {
+                    error ->  Log.d("asdf1", error.toString())
+            }
+
+        )
+        queue.add(request)
+    }
+
+
     fun test2(msg: String?, id: String?) {
         var json = JSONObject()
         json.put("room_num",msg)

@@ -42,7 +42,7 @@ class MyRoomActivity : AppCompatActivity() {
         val request = StringRequest(Request.Method.GET, url1 + "/mylist/" + msg,
             Response.Listener {
                     response -> run {
-                        Log.d("asdf", response)
+                        Log.d("asdd", response)
                         var result = JSONObject(response)
                         var temp = result.getJSONArray("list")
                         var temp2 = result.getJSONArray("names")

@@ -17,7 +17,7 @@ class MakeroomActivity : AppCompatActivity() {
         setContentView(R.layout.activity_makeroom)
 
         makeRoom.setOnClickListener {
-            test1(roomName.text.toString() + " " + MainActivity.ID)
+            test1(roomName.text.toString() + " " + myTeam.text.toString() +  " " + MainActivity.ID)
         }
     }
 
@@ -27,7 +27,10 @@ class MakeroomActivity : AppCompatActivity() {
             Response.Listener {
                 //response -> Log.d("tag", response)
                     response -> run {
-                        Toast.makeText(this, "채팅방 생성 완료", Toast.LENGTH_SHORT).show()
+                        if(response == "ok")
+                            Toast.makeText(this, "채팅방 생성 완료", Toast.LENGTH_SHORT).show()
+                        else
+                            Toast.makeText(this, "채팅방 생성 실패", Toast.LENGTH_SHORT).show()
                     }
             }, null
         )
