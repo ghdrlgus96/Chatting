@@ -1,5 +1,7 @@
 package kr.ac.gachon.hong.chatting
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -98,6 +100,39 @@ class ChattingActovity : AppCompatActivity() {
                     }
                 )
                 queue.add(request)
+
+                chatLog.setOnItemClickListener { parent, view, position, id ->
+                    var temp = contentlist.get(position)
+                    var temps = temp.split(" ")
+                    //Toast.makeText(this@ChattingActovity, temps[i].size.toString(), Toast.LENGTH_SHORT).show()
+
+                    //test2(temp, MainActivity.USER)
+                    for(i in 0..temps.size - 1) {
+                        //Toast.makeText(this@ChattingActovity, temps.size.toString(), Toast.LENGTH_SHORT).show()
+                        if(temps[i].length > 4 && (temps[i][0].toString() + temps[i][1] + temps[i][2] + temps[i][3]) == "www.") {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://" + temps[i]))
+                            if (intent.resolveActivity(packageManager) != null)
+                                startActivity(intent)
+                        }
+                        else if(temps[i].length > 7 && (temps[i][0].toString() + temps[i][1] + temps[i][2] + temps[i][3] + temps[i][4] + temps[i][5] + temps[i][6]) == "http://") {
+                            var myurl = temps[i].substring(7)
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://" + myurl))
+                            if (intent.resolveActivity(packageManager) != null)
+                                startActivity(intent)
+                        }
+                        else if( temps[i].length > 8 && (temps[i][0].toString() + temps[i][1] + temps[i][2] + temps[i][3] + temps[i][4] + temps[i][5] + temps[i][6] + temps[i][7]) == "https://") {
+                            var myurl = temps[i].substring(8)
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://" + myurl))
+                            if (intent.resolveActivity(packageManager) != null)
+                                startActivity(intent)
+                        }
+                        else {
+                            //break
+                        }
+
+                    }
+
+                }
             }
         }
         mTimer = Timer()
