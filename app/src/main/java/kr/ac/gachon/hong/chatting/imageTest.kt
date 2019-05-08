@@ -30,7 +30,7 @@ class imageTest : AppCompatActivity() {
         val request = object : ImageRequest(
             url + "/testtest",
             Response.Listener<Bitmap> {
-                    toasting("성재바보")
+                    toasting("됬냐????")
             }, 0, 0, Bitmap.Config.ARGB_8888, Response.ErrorListener {
                     toasting(it.toString())
             }
