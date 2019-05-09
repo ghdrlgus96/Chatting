@@ -9,6 +9,8 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.ImageRequest
 import com.android.volley.toolbox.Volley
+import kotlinx.android.synthetic.main.activity_image_test.*
+
 
 class imageTest : AppCompatActivity() {
     var chatlist = ArrayList<String>()
@@ -19,18 +21,19 @@ class imageTest : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image_test)
 
-        test2()
+        test()
+
     }
     fun toasting(msg: String?) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
-    fun test2() {
+    fun test() {
         //json.put("Content-Type", "application/json");
         var queue: RequestQueue = Volley.newRequestQueue(this);
         val request = object : ImageRequest(
-            url + "/testtest",
+            url + "/downloadFile/Anmi.jpg",
             Response.Listener<Bitmap> {
-                    toasting("됬냐????")
+                    imageView.setImageBitmap(it)
             }, 0, 0, Bitmap.Config.ARGB_8888, Response.ErrorListener {
                     toasting(it.toString())
             }
@@ -45,4 +48,5 @@ class imageTest : AppCompatActivity() {
         }
         queue.add(request)
     }
+
 }
